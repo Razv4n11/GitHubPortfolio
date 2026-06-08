@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="ro">
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<title>Portofoliu Web Dinamic</title>
+	<link rel="preconnect" href="https://fonts.googleapis.com" />
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+	<link
+		href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Space+Grotesk:wght@300;400;500;600;700&display=swap"
+		rel="stylesheet"
+	/>
+	<link rel="stylesheet" href="style.css" />
+</head>
+<body>
+	<div class="page" data-username="Razv4n11">
+		<header>
+			<div class="profile-card">
+				<div class="profile-meta">
+					<img
+						class="profile-avatar"
+						src="https://avatars.githubusercontent.com/u/121610969?v=4"
+						alt="Avatar GitHub"
+						id="profileAvatar"
+					/>
+					<div>
+						<div class="role" id="profileRole">Computer Science Student</div>
+						<h1 id="profileName">Razvan Andreiu</h1>
+						<div class="handle" id="profileHandle">@Razv4n11</div>
+						<div class="meta-row">
+							<span class="meta-pill">C#</span>
+							<span class="meta-pill">C++</span>
+							<span class="meta-pill">HTML</span>
+						</div>
+					</div>
+				</div>
+				<p class="profile-text" id="profileBio">
+					Portofoliu dinamic care combina design editorial cu date live din GitHub. Proiectele sunt alimentate
+					direct din profilul meu GitHub.
+				</p>
+				<a class="profile-link" id="profileLink" href="https://github.com/Razv4n11" target="_blank" rel="noopener">
+					Vezi profilul GitHub
+				</a>
+			</div>
+			<div class="info-grid">
+				<div class="info-card">
+					<strong>Followers</strong>
+					<p><span id="followersCount">0</span></p>
+				</div>
+				<div class="info-card">
+					<strong>Following</strong>
+					<p><span id="followingCount">0</span></p>
+				</div>
+				<div class="info-card">
+					<strong>Public Repos</strong>
+					<p><span id="repoCount">0</span></p>
+				</div>
+				<div class="info-card">
+					<strong>Locatie</strong>
+					<p><span id="locationValue">Nespecificata</span></p>
+				</div>
+			</div>
+		</header>
+
+		<section>
+			<div class="section-title"><span>01</span> Portofoliu GitHub</div>
+			<div class="filters">
+				<input class="search-input" type="search" placeholder="Cauta proiecte dupa nume sau descriere..." />
+				<div class="filter-group" id="languageFilters"></div>
+			</div>
+			<div id="status" class="status">Se incarca proiectele...</div>
+			<div id="portfolio" class="portfolio-grid">
+				<div class="skeleton"></div>
+				<div class="skeleton"></div>
+				<div class="skeleton"></div>
+			</div>
+		</section>
+
+		<section>
+			<div class="section-title"><span>02</span> Despre mine</div>
+			<div class="profile-card">
+				<p class="profile-text" id="aboutText">
+					Profilul meu GitHub pune accent pe proiecte de jocuri si aplicatii software. Portofoliul este
+					actualizat automat pe baza activitatii publice.
+				</p>
+			</div>
+		</section>
+
+		<footer>
+			Portofoliu dinamic • GitHub API + PHP proxy • 2026
+		</footer>
+	</div>
+
+	<script src="app.js"></script>
+</body>
+</html>
