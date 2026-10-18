@@ -70,6 +70,11 @@ const fallbackProjects = [
 let allProjects = [];
 let activeLanguage = "All";
 
+const githubApiHeaders = {
+    Accept: "application/vnd.github+json",
+    "X-GitHub-Api-Version": "2022-11-28"
+};
+
 function formatDate(value) {
     return new Date(value).toLocaleDateString("ro-RO", {
         year: "numeric",
@@ -198,7 +203,9 @@ async function loadProjects() {
     const username = document.querySelector(".page").dataset.username;
     try {
         statusEl.textContent = "Se incarca proiectele...";
-        const response = await fetch(`proxy.php?username=${encodeURIComponent(username)}&type=repos`);
+        const response = await fetch(`https://api.github.com/users/${encodeURIComponent(username)}/repos?per_page=100`, {
+            headers: githubApiHeaders
+        });
         if (!response.ok) {
             throw new Error("API error");
         }
@@ -217,7 +224,9 @@ async function loadProjects() {
 async function loadProfile() {
     const username = document.querySelector(".page").dataset.username;
     try {
-        const response = await fetch(`proxy.php?username=${encodeURIComponent(username)}&type=profile`);
+        const response = await fetch(`https://api.github.com/users/${encodeURIComponent(username)}`, {
+            headers: githubApiHeaders
+        });
         if (!response.ok) {
             throw new Error("API error");
         }
