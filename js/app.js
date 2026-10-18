@@ -151,6 +151,42 @@ function renderFilters(projects) {
     });
 }
 
+function renderProjectList(projects) {
+    const currentCards = Array.from(portfolioEl.querySelectorAll(".project-card"));
+    const currentMap = new Map(currentCards.map((card) => [card.dataset.projectName, card]));
+    const nextNames = new Set(projects.map((project) => project.name));
+
+    currentCards.forEach((card) => {
+        if (!nextNames.has(card.dataset.projectName)) {
+            card.classList.add("is-animated-out");
+            setTimeout(() => card.remove(), 260);
+        }
+    });
+
+    const fragment = document.createDocumentFragment();
+    projects.forEach((project, index) => {
+        let card = currentMap.get(project.name);
+        if (!card) {
+            card = createCard(project);
+            card.style.animationDelay = `${index * 50}ms`;
+        } else {
+            card.classList.remove("is-animated-out");
+            card.classList.add("is-rearranged");
+            card.style.animationDelay = `${index * 40}ms`;
+        }
+
+        card.dataset.projectName = project.name;
+        fragment.appendChild(card);
+    });
+
+    portfolioEl.innerHTML = "";
+    portfolioEl.appendChild(fragment);
+
+    if (projects.length === 0) {
+        portfolioEl.innerHTML = "<div class=\"status\">Nu exista rezultate pentru filtrarea curenta.</div>";
+    }
+}
+
 function applyFilters() {
     const searchTerm = searchInput.value.toLowerCase();
     let filtered = allProjects.filter((project) => {
@@ -159,11 +195,7 @@ function applyFilters() {
         return matchesSearch && matchesLanguage;
     });
 
-    portfolioEl.innerHTML = "";
-    filtered.forEach((project) => portfolioEl.appendChild(createCard(project)));
-    if (filtered.length === 0) {
-        portfolioEl.innerHTML = "<div class=\"status\">Nu exista rezultate pentru filtrarea curenta.</div>";
-    }
+    renderProjectList(filtered);
 }
 
 function wireFilters() {
