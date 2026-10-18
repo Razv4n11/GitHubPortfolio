@@ -235,6 +235,7 @@ async function loadProjects() {
             throw new Error("Invalid data");
         }
         hydrateProjects(data);
+        statusEl.textContent = "Proiectele au fost incarcate cu succes.";
     } catch (error) {
         statusEl.textContent = "Ups! Nu am putut incarca proiectele momentan.";
         portfolioEl.innerHTML = "";
