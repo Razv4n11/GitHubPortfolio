@@ -69,6 +69,7 @@ const fallbackProjects = [
 
 let allProjects = [];
 let activeLanguage = "All";
+let renderVersion = 0;
 
 const githubApiHeaders = {
     Accept: "application/vnd.github+json",
@@ -85,7 +86,7 @@ function formatDate(value) {
 
 function createCard(project) {
     const card = document.createElement("article");
-    card.className = "project-card";
+    card.className = "project-card is-new";
     card.innerHTML = `
 		<div class="project-title">${project.name}</div>
 		<div class="project-desc">${project.description || "Fara descriere disponibila"}</div>
@@ -152,44 +153,41 @@ function renderFilters(projects) {
 }
 
 function renderProjectList(projects) {
+    renderVersion += 1;
+    const currentRender = renderVersion;
     const currentCards = Array.from(portfolioEl.querySelectorAll(".project-card"));
-    const currentMap = new Map(currentCards.map((card) => [card.dataset.projectName, card]));
-    const nextNames = new Set(projects.map((project) => project.name));
 
     currentCards.forEach((card) => {
-        if (!nextNames.has(card.dataset.projectName)) {
-            card.classList.add("is-animated-out");
-            setTimeout(() => card.remove(), 260);
-        }
+        card.classList.add("is-animated-out");
     });
 
-    const fragment = document.createDocumentFragment();
-    projects.forEach((project, index) => {
-        let card = currentMap.get(project.name);
-        if (!card) {
-            card = createCard(project);
-            card.style.animationDelay = `${index * 50}ms`;
-        } else {
-            card.classList.remove("is-animated-out");
-            card.classList.add("is-rearranged");
-            card.style.animationDelay = `${index * 40}ms`;
-        }
-
-        card.dataset.projectName = project.name;
-        fragment.appendChild(card);
+    const nextCards = projects.map((project, index) => {
+        const card = createCard(project);
+        card.style.animationDelay = `${index * 50}ms`;
+        return card;
     });
 
-    portfolioEl.innerHTML = "";
-    portfolioEl.appendChild(fragment);
+    let delay = 50 * currentCards.length + 280;
 
-    if (projects.length === 0) {
-        portfolioEl.innerHTML = "<div class=\"status\">Nu exista rezultate pentru filtrarea curenta.</div>";
-    }
+    window.setTimeout(() => {
+        if (currentRender !== renderVersion) {
+            return;
+        }
+
+        portfolioEl.innerHTML = "";
+
+        if (nextCards.length === 0) {
+            portfolioEl.innerHTML = "<div class=\"status\">Nu exista rezultate pentru filtrarea curenta.</div>";
+            return;
+        }
+
+        nextCards.forEach((card) => portfolioEl.appendChild(card));
+    }, delay);
 }
 
 function applyFilters() {
     const searchTerm = searchInput.value.toLowerCase();
-    let filtered = allProjects.filter((project) => {
+    const filtered = allProjects.filter((project) => {
         const matchesSearch = `${project.name} ${project.description || ""}`.toLowerCase().includes(searchTerm);
         const matchesLanguage = activeLanguage === "All" || project.language === activeLanguage;
         return matchesSearch && matchesLanguage;
@@ -216,17 +214,8 @@ function hydrateProjects(projects) {
         .filter((project) => !project.fork)
         .sort((a, b) => new Date(b.updated_at) - new Date(a.updated_at));
 
-    let finalList = sorted;
-    if (sorted.length < 5) {
-        statusEl.textContent = "Ai putine proiecte publice. Afisez si exemple locale.";
-        const needed = 5 - sorted.length;
-        finalList = [...sorted, ...fallbackProjects.slice(0, needed)];
-    } else {
-        statusEl.textContent = `Total proiecte incarcate: ${sorted.length}.`;
-    }
-
-    allProjects = finalList;
-    renderFilters(finalList);
+    allProjects = sorted;
+    renderFilters(sorted);
     wireFilters();
     applyFilters();
 }

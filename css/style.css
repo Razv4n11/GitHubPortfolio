@@ -193,24 +193,27 @@ section {
     position: relative;
     overflow: hidden;
     opacity: 0;
-    transform: translateY(-18px) scale(0.98);
-    animation: project-in 0.48s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+    visibility: hidden;
     will-change: transform, opacity;
     transition: transform 0.35s ease, box-shadow 0.25s ease;
+}
+
+.project-card.is-new {
+    opacity: 0;
+    visibility: visible;
+    animation: project-in 0.48s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+}
+
+.project-card.is-animated-out {
+    opacity: 1;
+    visibility: visible;
+    animation: project-out 0.28s ease forwards;
+    pointer-events: none;
 }
 
 .project-card:hover {
     transform: translateY(-4px);
     box-shadow: 0 18px 28px rgba(29, 26, 22, 0.12);
-}
-
-.project-card.is-rearranged {
-    animation: project-rearrange 0.42s cubic-bezier(0.2, 0.8, 0.2, 1);
-}
-
-.project-card.is-animated-out {
-    animation: project-out 0.28s ease forwards;
-    pointer-events: none;
 }
 
 .project-card::before {
@@ -295,11 +298,13 @@ section {
 @keyframes project-in {
     0% {
         opacity: 0;
+        visibility: visible;
         transform: translateY(-22px) scale(0.97);
     }
 
     100% {
         opacity: 1;
+        visibility: visible;
         transform: translateY(0) scale(1);
     }
 }
@@ -307,26 +312,14 @@ section {
 @keyframes project-out {
     0% {
         opacity: 1;
+        visibility: visible;
         transform: translateY(0) scale(1);
     }
 
     100% {
         opacity: 0;
+        visibility: hidden;
         transform: translateY(20px) scale(0.96);
-    }
-}
-
-@keyframes project-rearrange {
-    0% {
-        transform: translate3d(0, 0, 0) scale(1);
-    }
-
-    30% {
-        transform: translate3d(10px, -8px, 0) scale(1.01) rotate(0.6deg);
-    }
-
-    100% {
-        transform: translate3d(0, 0, 0) scale(1);
     }
 }
 
