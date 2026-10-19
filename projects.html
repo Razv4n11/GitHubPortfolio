@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="ro">
+
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<title>Proiecte | Portofoliu Web Dinamic</title>
+	<link rel="preconnect" href="https://fonts.googleapis.com" />
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+	<link
+		href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Space+Grotesk:wght@300;400;500;600;700&display=swap"
+		rel="stylesheet" />
+	<link rel="stylesheet" href="css/style.css" />
+</head>
+
+<body>
+	<div class="page" data-username="Razv4n11">
+		<nav class="site-nav" aria-label="Navigare principala">
+			<button class="nav-toggle" type="button" aria-expanded="false" aria-controls="nav-links">
+				<span class="nav-toggle-label">Meniu</span>
+				<span class="nav-toggle-icon" aria-hidden="true">&#9776;</span>
+			</button>
+			<div class="nav-links" id="nav-links">
+				<div class="nav-links-inner">
+					<a href="index.html">Acasa</a>
+					<a href="about.html">Despre mine</a>
+					<a href="projects.html" aria-current="page">Proiecte</a>
+					<a href="contact.html">Contact</a>
+				</div>
+			</div>
+		</nav>
+
+		<main>
+			<section>
+				<div class="section-title"><span>01</span> Portofoliu GitHub</div>
+				<div class="filters">
+					<input class="search-input" type="search" placeholder="Cauta proiecte dupa nume sau descriere..."
+						aria-label="Cauta proiecte" />
+					<div class="filter-group" id="languageFilters"></div>
+				</div>
+				<div id="status" class="status">Se incarca proiectele...</div>
+				<div id="portfolio" class="portfolio-grid">
+					<div class="skeleton"></div>
+					<div class="skeleton"></div>
+					<div class="skeleton"></div>
+				</div>
+			</section>
+		</main>
+
+		<footer>Portofoliu dinamic • GitHub API • 2026</footer>
+	</div>
+	<script src="js/navigation.js"></script>
+	<script src="js/projects.js"></script>
+</body>
+
+</html>

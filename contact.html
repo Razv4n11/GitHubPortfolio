@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="ro">
+
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<title>Contact | Portofoliu Web Dinamic</title>
+	<link rel="preconnect" href="https://fonts.googleapis.com" />
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+	<link
+		href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Space+Grotesk:wght@300;400;500;600;700&display=swap"
+		rel="stylesheet" />
+	<link rel="stylesheet" href="css/style.css" />
+</head>
+
+<body>
+	<div class="page">
+		<nav class="site-nav" aria-label="Navigare principala">
+			<button class="nav-toggle" type="button" aria-expanded="false" aria-controls="nav-links">
+				<span class="nav-toggle-label">Meniu</span>
+				<span class="nav-toggle-icon" aria-hidden="true">&#9776;</span>
+			</button>
+			<div class="nav-links" id="nav-links">
+				<div class="nav-links-inner">
+					<a href="index.html">Acasa</a>
+					<a href="about.html">Despre mine</a>
+					<a href="projects.html">Proiecte</a>
+					<a href="contact.html" aria-current="page">Contact</a>
+				</div>
+			</div>
+		</nav>
+
+		<main>
+			<section>
+				<div class="section-title"><span>01</span> Contact</div>
+				<form class="profile-card" id="contactForm" novalidate>
+					<label for="name">Nume</label>
+					<input class="search-input" id="name" name="name" type="text" autocomplete="name" required />
+					<small class="form-error" id="nameError"></small>
+
+					<label for="email">Email</label>
+					<input class="search-input" id="email" name="email" type="email" autocomplete="email" required />
+					<small class="form-error" id="emailError"></small>
+
+					<label for="message">Mesaj</label>
+					<textarea class="search-input" id="message" name="message" rows="6" maxlength="1000"
+						required></textarea>
+					<small class="form-error" id="messageError"></small>
+					<small class="character-counter" id="messageCounter" aria-live="polite">0/1000 caractere</small>
+
+					<button class="profile-link" type="submit">Trimite mesajul</button>
+					<p class="form-feedback" id="formFeedback" role="status" aria-live="polite"></p>
+				</form>
+			</section>
+		</main>
+		<footer>Portofoliu dinamic • GitHub API • 2026</footer>
+	</div>
+	<script src="js/navigation.js"></script>
+	<script src="js/contact.js"></script>
+</body>
+
+</html>

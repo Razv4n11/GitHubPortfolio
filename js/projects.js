@@ -2,17 +2,6 @@ const portfolioEl = document.getElementById("portfolio");
 const statusEl = document.getElementById("status");
 const searchInput = document.querySelector(".search-input");
 const languageFiltersEl = document.getElementById("languageFilters");
-const profileAvatar = document.getElementById("profileAvatar");
-const profileName = document.getElementById("profileName");
-const profileHandle = document.getElementById("profileHandle");
-const profileRole = document.getElementById("profileRole");
-const profileBio = document.getElementById("profileBio");
-const profileLink = document.getElementById("profileLink");
-const followersCount = document.getElementById("followersCount");
-const followingCount = document.getElementById("followingCount");
-const repoCount = document.getElementById("repoCount");
-const locationValue = document.getElementById("locationValue");
-const aboutText = document.getElementById("aboutText");
 
 const fallbackProjects = [
     {
@@ -99,39 +88,6 @@ function createCard(project) {
 		<a class="project-link" href="${project.html_url}" target="_blank" rel="noopener">Vezi pe GitHub</a>
 	`;
     return card;
-}
-
-function applyProfile(profile) {
-    if (profile.avatar_url) {
-        profileAvatar.src = profile.avatar_url;
-    }
-    const displayName = profile.name || profile.login;
-    if (displayName) {
-        profileName.textContent = displayName;
-    }
-    if (profile.login) {
-        profileHandle.textContent = `@${profile.login}`;
-    }
-    if (profile.bio) {
-        profileBio.textContent = profile.bio;
-        aboutText.textContent = profile.bio;
-    }
-    if (profile.html_url) {
-        profileLink.href = profile.html_url;
-    }
-    if (typeof profile.followers === "number") {
-        followersCount.textContent = profile.followers;
-    }
-    if (typeof profile.following === "number") {
-        followingCount.textContent = profile.following;
-    }
-    if (typeof profile.public_repos === "number") {
-        repoCount.textContent = profile.public_repos;
-    }
-    locationValue.textContent = profile.location || "Nespecificata";
-    if (profileRole && profileRole.textContent.trim() === "") {
-        profileRole.textContent = "Developer";
-    }
 }
 
 function renderFilters(projects) {
@@ -243,24 +199,4 @@ async function loadProjects() {
     }
 }
 
-async function loadProfile() {
-    const username = document.querySelector(".page").dataset.username;
-    try {
-        const response = await fetch(`https://api.github.com/users/${encodeURIComponent(username)}`, {
-            headers: githubApiHeaders
-        });
-        if (!response.ok) {
-            throw new Error("API error");
-        }
-        const data = await response.json();
-        if (!data || typeof data !== "object") {
-            throw new Error("Invalid data");
-        }
-        applyProfile(data);
-    } catch (error) {
-        statusEl.textContent = "Nu am putut incarca profilul. Verifica conexiunea sau incearca mai tarziu.";
-    }
-}
-
-loadProfile();
 loadProjects();

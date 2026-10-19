@@ -30,6 +30,45 @@ body {
     padding: 32px 24px 80px;
 }
 
+.site-nav {
+    margin-bottom: 28px;
+}
+
+.nav-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.nav-links-inner {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.nav-links a {
+    color: var(--ink);
+    text-decoration: none;
+    background: #ffffffc7;
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    padding: 8px 14px;
+    font-weight: 600;
+    transition: transform 0.2s ease, background 0.2s ease;
+}
+
+.nav-links a:hover,
+.nav-links a[aria-current="page"] {
+    color: #fffaf4;
+    background: var(--accent);
+    border-color: transparent;
+    transform: translateY(-2px);
+}
+
+.nav-toggle {
+    display: none;
+}
+
 header {
     display: grid;
     gap: 24px;
@@ -46,6 +85,46 @@ header {
     border-radius: 20px;
     position: relative;
     overflow: hidden;
+}
+
+form.profile-card {
+    display: grid;
+    gap: 10px;
+}
+
+form.profile-card label {
+    font-weight: 600;
+    margin-top: 6px;
+}
+
+form.profile-card .profile-link {
+    border: 0;
+    cursor: pointer;
+    font: inherit;
+    justify-self: start;
+}
+
+.form-error {
+    min-height: 1.2em;
+    color: var(--accent-dark);
+}
+
+.character-counter {
+    color: var(--muted);
+    text-align: right;
+}
+
+.form-feedback {
+    min-height: 1.2em;
+    margin: 4px 0 0;
+}
+
+.form-feedback.is-error {
+    color: var(--accent-dark);
+}
+
+.form-feedback.is-success {
+    color: #386641;
 }
 
 .profile-card::after {
@@ -330,6 +409,57 @@ footer {
 }
 
 @media (max-width: 720px) {
+    .nav-toggle {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        border: 1px solid var(--line);
+        border-radius: 12px;
+        padding: 10px 14px;
+        color: var(--ink);
+        background: #ffffffc7;
+        font: inherit;
+        font-weight: 600;
+        cursor: pointer;
+    }
+
+    .nav-toggle-icon {
+        font-size: 1.35rem;
+        line-height: 1;
+    }
+
+    .nav-links {
+        display: grid;
+        grid-template-rows: 0fr;
+        margin-top: 8px;
+        overflow: hidden;
+        opacity: 0;
+        transform: translateY(-8px);
+        pointer-events: none;
+        transition: grid-template-rows 0.35s ease, opacity 0.35s ease-in, transform 0.35s ease;
+    }
+
+    .nav-links.is-open {
+        grid-template-rows: 1fr;
+        opacity: 1;
+        transform: translateY(0);
+        pointer-events: auto;
+    }
+
+    .nav-links-inner {
+        display: flex;
+        flex-direction: column;
+        min-height: 0;
+        gap: 8px;
+        overflow: hidden;
+    }
+
+    .nav-links a {
+        width: 100%;
+        border-radius: 12px;
+    }
+
     h1 {
         font-size: 2.1rem;
     }
